@@ -1,0 +1,40 @@
+:root {
+  color-scheme: dark;
+  --bg: #0b1216;
+  --panel: #111b20;
+  --panel-soft: #17232a;
+  --ink: #eaf1ee;
+  --muted: #97a7aa;
+  --line: rgba(255, 255, 255, 0.11);
+  --accent: #7fb4c0;
+  --good: #9bcf96;
+  --warn: #d2b07a;
+  --danger: #d37d74;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: Inter, system-ui, sans-serif; background: radial-gradient(circle at 10% -20%, #1f2d35 0, #0b1216 55%); color: var(--ink); }
+.app { width:min(100vw,430px); margin:0 auto; min-height:100svh; padding: max(12px,env(safe-area-inset-top)) 12px max(14px,env(safe-area-inset-bottom)); display:grid; grid-template-rows:auto auto 1fr auto auto; gap:10px; }
+.card{background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01)); border:1px solid var(--line); border-radius:16px; padding:12px;}
+.header{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.title{font-size:1.15rem;font-weight:700}
+.muted{color:var(--muted);font-size:.82rem}
+.res{display:flex;gap:8px;flex-wrap:wrap}
+.badge{padding:5px 8px;border-radius:999px;border:1px solid var(--line);font-size:.78rem;background:#0f171b}
+.kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.kpi .card{padding:10px}
+.big{font-size:1.12rem;font-weight:700}
+.grid{display:grid;gap:8px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.btn{border:1px solid var(--line);background:#172228;color:var(--ink);padding:8px 10px;border-radius:10px}
+.btn.primary{background:#26363d}
+.btn:disabled{opacity:.45}
+.queue-item{display:grid;grid-template-columns:1fr auto;gap:6px;padding:8px;border-radius:10px;background:var(--panel-soft);border:1px solid var(--line)}
+.modules{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.tile{border:1px solid var(--line);border-radius:12px;padding:8px;background:#111a1f}
+.nav{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.nav button{padding:9px 6px;border-radius:12px;border:1px solid var(--line);background:#121c21;color:var(--muted);font-size:.75rem}
+.nav button.active{color:var(--ink);border-color:#6a8d97;background:#1c2a30}
+.asset-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.asset-strip img{width:100%;height:64px;object-fit:cover;border-radius:10px;border:1px solid var(--line)}
+.log{max-height:124px;overflow:auto;display:grid;gap:6px}
+.log div{font-size:.8rem;padding:6px;border-left:2px solid #5f7882;background:#131e23}
