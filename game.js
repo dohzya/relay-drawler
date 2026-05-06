@@ -121,6 +121,7 @@ const MULTIPLIERS = [1, 2, 4, 8];
 
 const defaultState = {
   screen: "base",
+  theme: "dark",
   components: 40,
   passiveDrones: 0,
   upgrades: [],
@@ -129,6 +130,8 @@ const defaultState = {
 };
 
 let state = loadState();
+
+applyTheme();
 
 function loadState() {
   try {
@@ -141,6 +144,23 @@ function loadState() {
 
 function saveState() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...state, toast: "" }));
+}
+
+function applyTheme() {
+  const theme = state.theme === "light" ? "light" : "dark";
+  document.documentElement.dataset.theme = theme;
+  const themeMeta = document.querySelector('meta[name="theme-color"]');
+  if (themeMeta) {
+    themeMeta.setAttribute("content", theme === "light" ? "#e9f3f7" : "#081014");
+  }
+}
+
+function toggleTheme() {
+  state.theme = state.theme === "light" ? "dark" : "light";
+  applyTheme();
+  state.toast = `Mode ${state.theme === "light" ? "clair" : "sombre"} active.`;
+  saveState();
+  render();
 }
 
 function hasUpgrade(id) {
@@ -470,6 +490,7 @@ function fmt(value) {
 
 function render() {
   const app = document.querySelector("#app");
+  applyTheme();
   if (state.screen === "run") app.innerHTML = renderRun();
   if (state.screen === "waveResult") app.innerHTML = renderWaveResult();
   if (state.screen === "base") app.innerHTML = renderBase();
@@ -515,7 +536,10 @@ function renderBase() {
           <p class="eyebrow">Base autonome</p>
           <h1>Relais Drones</h1>
         </div>
-        <button class="icon-button" aria-label="Reinitialiser" title="Reinitialiser" onclick="resetGame()">↺</button>
+        <div class="button-row">
+          <button class="icon-button" aria-label="Basculer le theme" title="Basculer le theme" onclick="toggleTheme()">${state.theme === "light" ? "☀" : "☾"}</button>
+          <button class="icon-button" aria-label="Reinitialiser" title="Reinitialiser" onclick="resetGame()">↺</button>
+        </div>
       </div>
       ${state.toast ? `<div class="toast">${state.toast}</div>` : ""}
       <div class="stat-grid">
@@ -555,7 +579,10 @@ function renderRun() {
           <h2>${enemy.name}</h2>
           <p class="tiny">${enemy.effect}</p>
         </div>
-        <button class="icon-button" aria-label="Abandonner" title="Abandonner" onclick="abortRun()">⌂</button>
+        <div class="button-row">
+          <button class="icon-button" aria-label="Basculer le theme" title="Basculer le theme" onclick="toggleTheme()">${state.theme === "light" ? "☀" : "☾"}</button>
+          <button class="icon-button" aria-label="Abandonner" title="Abandonner" onclick="abortRun()">⌂</button>
+        </div>
       </div>
       ${state.toast ? `<div class="toast">${state.toast}</div>` : ""}
       <div class="run-panel enemy-card">
